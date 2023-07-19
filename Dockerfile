@@ -25,7 +25,7 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 ENV TZ="Asia/Seoul"
 
 # Install NVIM
-RUN curl -fLo /tmp/nvim.appimage --create-dirs \
+RUN curl -fLo /tmp/nvim-amd64.appimage --create-dirs \
       https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 ADD ./nvim-v0.9.1-aarch64.appimage /tmp/nvim.appimage
 ADD ./install_nvim.sh /tmp/install_nvim.sh
