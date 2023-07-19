@@ -62,6 +62,9 @@ RUN sed -i.bak \
   's~\(ZSH_THEME="\)[^"]*\(".*\)~\1powerlevel10k\/powerlevel10k\2~' \
   ~/.zshrc
 
+# Install NVM
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 RUN ~/.fzf/install --key-bindings --completion --update-rc
