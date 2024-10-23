@@ -64,6 +64,8 @@ RUN sed -i.bak \
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+RUN echo "source ~/.nvm/nvm.sh && \
+          nvm install node " | bash
 
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
