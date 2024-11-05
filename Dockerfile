@@ -22,7 +22,7 @@ ENV LC_ALL ko_KR.UTF-8
 RUN apt-get install -yq tzdata
 RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
-ENV TZ="Asia/Seoul"
+ENV TZ "Asia/Seoul"
 
 # Install NVIM
 RUN curl -fLo /tmp/nvim-amd64.appimage --create-dirs \
