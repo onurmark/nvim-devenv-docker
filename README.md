@@ -1,5 +1,5 @@
 # nvim-devenv-docker
-Develope environment for c programmer with Neovim on docker
+Develop environment for c programmer with Neovim on docker
 
 # Use devenv
 
