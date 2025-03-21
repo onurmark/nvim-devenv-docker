@@ -5,7 +5,7 @@ LABEL "maintainer"="onurmark@gmail.com"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG USERNAME=john
-ENV USER $USERNAME
+ENV USER=$USERNAME
 
 RUN apt-get update
 
@@ -16,17 +16,17 @@ RUN apt-get install -y \
 # Locale
 RUN apt-get install -y locales
 RUN locale-gen ko_KR.UTF-8
-ENV LC_ALL ko_KR.UTF-8
+ENV LC_ALL=ko_KR.UTF-8
 
 # Timezone
 RUN apt-get install -yq tzdata
 RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
-ENV TZ "Asia/Seoul"
+ENV TZ="Asia/Seoul"
 
 # Install NVIM
 RUN curl -fLo /tmp/nvim-amd64.appimage --create-dirs \
-      https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+      https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
 ADD ./nvim-v0.9.1-aarch64.appimage /tmp/nvim.appimage
 ADD ./install_nvim.sh /tmp/install_nvim.sh
 RUN bash /tmp/install_nvim.sh
@@ -63,7 +63,7 @@ RUN sed -i.bak \
   ~/.zshrc
 
 # Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 RUN echo "source ~/.nvm/nvm.sh && \
           nvm install node " | bash
 
