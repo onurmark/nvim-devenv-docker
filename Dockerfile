@@ -5,7 +5,10 @@ LABEL "maintainer"="onurmark@gmail.com"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG USERNAME=john
+
 ENV USER=$USERNAME
+ENV TERM=xterm-256color
+ENV DOCKER_MACHINE_NAME=nvim-devenv-docker
 
 RUN apt-get update
 
@@ -55,13 +58,6 @@ WORKDIR /home/$USER
 # Install ohmyzsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Install powerlevel10k
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-RUN sed -i.bak \
-  's~\(ZSH_THEME="\)[^"]*\(".*\)~\1powerlevel10k\/powerlevel10k\2~' \
-  ~/.zshrc
-
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 RUN echo "source ~/.nvm/nvm.sh && \
@@ -74,6 +70,19 @@ RUN ~/.fzf/install --key-bindings --completion --update-rc
 # Install Neovim config
 RUN git clone --depth 1 https://github.com/onurmark/dotfiles.git /tmp/dotfiles
 RUN cp -rf /tmp/dotfiles/.config ~
+
+# Install powerlevel10k
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+RUN sed -i.bak \
+  's~\(ZSH_THEME="\)[^"]*\(".*\)~\1powerlevel10k\/powerlevel10k\2~' \
+  ~/.zshrc
+
+ADD .p10k.zsh .p10k.zsh
+ADD .p10k-customize.zsh .p10k-customize.zsh
+
+RUN echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
+RUN echo "[[ ! -f ~/.p10k-customize.zsh ]] || source ~/.p10k-customize.zsh" >> ~/.zshrc
 
 # Generate ssh
 RUN ssh-keygen -q -t rsa -N '' -f /home/$USER/.ssh/id_rsa
