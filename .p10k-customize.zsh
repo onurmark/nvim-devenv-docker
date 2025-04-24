@@ -4,5 +4,4 @@ function prompt_docker_host() {
   fi
 }
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=docker_host
-
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS[${#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS}-1,0]=docker_host
